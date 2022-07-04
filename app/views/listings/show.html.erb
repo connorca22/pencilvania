@@ -9,7 +9,15 @@
   <% end %>
 </div> 
 
-<%= button_to "Buy Me", place_order_path%>
+<% if @listing.sold %>
+  <p>SOLD</p>
+<% elsif current_user && current_user.id == @listing.user_id %> 
+  <p>You cannot purchase your own item</p>  
+<% elsif current_user %>
+  <%= button_to "Buy Me", place_order_path%>
+<% else %>
+  <p>Please log in to make a purchase</p> 
+<% end %>
 
 <p>
   <strong>Title:</strong>
